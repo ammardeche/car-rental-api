@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "JUlCXMBvq/Y=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Surface\\Desktop\\car-rental-api\\CarRental.Api\\CarRental.Api.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Surface\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.11\\microsoft.aspnetcore.openapi.9.0.11.nupkg.sha512",
+    "C:\\Users\\Surface\\.nuget\\packages\\microsoft.openapi\\1.6.17\\microsoft.openapi.1.6.17.nupkg.sha512"
+  ],
+  "logs": []
+}
