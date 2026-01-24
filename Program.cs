@@ -1,6 +1,8 @@
 using CarRental.Api.data;
 using CarRental.Api.Interfaces;
 using CarRental.Api.Models;
+using CarRental.Api.Repositories;
+using CarRental.Api.Services;
 using CarRental.Api.Services.Auth;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +13,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 builder.Services.AddControllers();
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<ICarRepository, CarRepository>();
+builder.Services.AddScoped<ICarService, CarService>();
+
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
