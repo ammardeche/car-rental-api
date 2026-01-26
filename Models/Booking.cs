@@ -14,7 +14,7 @@ namespace CarRental.Api.Models
         public string UserId { get; set; } = null!;
         public User? User { get; set; }
 
-        public int CardId { get; set; }
+        public int CarId { get; set; }
         public Car? Car { get; set; }
 
         // Booking details

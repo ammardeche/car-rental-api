@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using CarRental.Api.DTOs.Auth;
 using CarRental.Api.Interfaces;
 using CarRental.Api.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,6 +25,7 @@ namespace CarRental.Api.Controllers
         }
 
         [HttpPost("login")]
+        [AllowAnonymous]
         public async Task<IActionResult> login([FromBody] LoginDto loginDto)
         {
             if (string.IsNullOrEmpty(loginDto.Email))
