@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Surface\\Desktop\\car-rental-api\\CarRental.Api\\CarRental.Api.csproj": {}
+    "C:\\Users\\Surface\\Desktop\\Car-rental-system\\car-rental-api\\CarRental.Api\\CarRental.Api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Surface\\Desktop\\car-rental-api\\CarRental.Api\\CarRental.Api.csproj": {
+    "C:\\Users\\Surface\\Desktop\\Car-rental-system\\car-rental-api\\CarRental.Api\\CarRental.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Surface\\Desktop\\car-rental-api\\CarRental.Api\\CarRental.Api.csproj",
+        "projectUniqueName": "C:\\Users\\Surface\\Desktop\\Car-rental-system\\car-rental-api\\CarRental.Api\\CarRental.Api.csproj",
         "projectName": "CarRental.Api",
-        "projectPath": "C:\\Users\\Surface\\Desktop\\car-rental-api\\CarRental.Api\\CarRental.Api.csproj",
+        "projectPath": "C:\\Users\\Surface\\Desktop\\Car-rental-system\\car-rental-api\\CarRental.Api\\CarRental.Api.csproj",
         "packagesPath": "C:\\Users\\Surface\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Surface\\Desktop\\car-rental-api\\CarRental.Api\\obj\\",
+        "outputPath": "C:\\Users\\Surface\\Desktop\\Car-rental-system\\car-rental-api\\CarRental.Api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

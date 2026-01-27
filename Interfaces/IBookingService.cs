@@ -13,6 +13,8 @@ namespace CarRental.Api.Interfaces
                 int carId,
                 DateTime startDate,
                 DateTime endDate
+
+
             );
 
         Task<IEnumerable<Booking>> GetAllAsync();

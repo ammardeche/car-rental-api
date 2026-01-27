@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Security.Claims;
 using CarRental.Api.DTOs.Auth;
 using CarRental.Api.Interfaces;
 using CarRental.Api.Models;
@@ -43,7 +44,22 @@ namespace CarRental.Api.Controllers
             // Generate token
             var token = await _tokenService.CreateTokenAsync(user);
 
-            return Ok(new { Token = token });
+            var roles = await _userManager.GetRolesAsync(user);
+            var userDto = new UserDto
+            {
+                Id = user.Id,
+                Email = user.Email ?? string.Empty,
+                FullName = user.FullName ?? string.Empty,
+                Roles = roles.ToList()
+            };
+
+            var response = new LoginResponseDto
+            {
+                User = userDto,
+                Token = token
+            };
+
+            return Ok(response);
         }
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
@@ -69,7 +85,32 @@ namespace CarRental.Api.Controllers
 
             var token = await _tokenService.CreateTokenAsync(user);
 
-            return Ok(new { Token = token });
+            var roles = await _userManager.GetRolesAsync(user);
+            var userDto = new UserDto
+            {
+                Id = user.Id,
+                Email = user.Email ?? string.Empty,
+                FullName = user.FullName ?? string.Empty,
+                Roles = roles.ToList()
+            };
+
+            var response = new LoginResponseDto
+            {
+                User = userDto,
+                Token = token
+            };
+
+            return Ok(response);
+        }
+
+        [HttpGet("me")]
+        [Authorize]
+        public IActionResult Me()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var email = User.FindFirstValue(ClaimTypes.Email);
+            var claims = User.Claims.Select(c => new { c.Type, c.Value });
+            return Ok(new { userId, email, claims });
         }
     }
 }

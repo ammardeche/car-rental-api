@@ -30,19 +30,31 @@ namespace CarRental.Api.Controllers
         }
 
         [HttpPost("create-booking")]
-
         public async Task<IActionResult> CreateBooking(CreateBookingDto dto)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // safer than UserManager here
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Unauthorized("User not authenticated.");
+            }
+
             var booking = await _bookingService.CreateBookingAsync(userId, dto.CarId, dto.StartDate, dto.EndDate);
-            return Ok(booking);
+
+            // Map to DTO to avoid serialization cycles
+            var bookingDto = MapToDto(booking);
+
+            return CreatedAtAction(nameof(GetById), new { id = bookingDto.Id }, bookingDto);
         }
 
         [HttpGet("get-all")]
         public async Task<IActionResult> GetAll()
         {
             var bookings = await _bookingService.GetAllAsync();
-            return Ok(bookings);
+            var dtos = bookings.Select(MapToDto);
+            return Ok(dtos);
         }
 
         [HttpGet("{id}")]
@@ -52,8 +64,33 @@ namespace CarRental.Api.Controllers
             if (booking == null)
                 return NotFound();
 
-            return Ok(booking);
+            return Ok(MapToDto(booking));
         }
 
+        private BookingDto MapToDto(Booking booking)
+        {
+            var carDto = booking.Car == null ? null : new CarRental.Api.DTOs.Car.CarDto
+            {
+                Id = booking.Car.Id,
+                Brand = booking.Car.Brand,
+                Model = booking.Car.Model,
+                Year = booking.Car.Year,
+                PricePerDay = booking.Car.PricePerDay,
+                IsAvailable = booking.Car.isAvailable,
+                ImageUrl = booking.Car.ImageUrl
+            };
+
+            return new BookingDto
+            {
+                Id = booking.Id,
+                UserId = booking.UserId,
+                UserEmail = booking.User?.Email,
+                Car = carDto,
+                CardId = booking.CardId,
+                StartDate = booking.StartDate,
+                EndDate = booking.EndDate,
+                TotalPrice = booking.TotalPrice
+            };
+        }
     }
 }

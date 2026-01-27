@@ -17,6 +17,9 @@ namespace CarRental.Api.Models
         public int CarId { get; set; }
         public Car? Car { get; set; }
 
+        // Optional payment card reference
+        public int? CardId { get; set; }
+
         // Booking details
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }

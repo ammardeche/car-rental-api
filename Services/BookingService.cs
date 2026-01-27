@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using CarRental.Api.data;
 using CarRental.Api.Interfaces;
 using CarRental.Api.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace CarRental.Api.Services
 {
@@ -36,6 +37,7 @@ namespace CarRental.Api.Services
             {
                 UserId = userId,
                 CarId = carId,
+
                 StartDate = startDate,
                 EndDate = endDate,
                 TotalPrice = totalPrice
@@ -43,6 +45,10 @@ namespace CarRental.Api.Services
 
             await _bookingRepository.AddAsync(booking);
             await _bookingRepository.SaveChangesAsync();
+
+            // Load navigation properties so returned entity has related data for mapping
+            await _context.Entry(booking).Reference(b => b.Car).LoadAsync();
+            await _context.Entry(booking).Reference(b => b.User).LoadAsync();
 
             return booking;
         }

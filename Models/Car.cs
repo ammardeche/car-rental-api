@@ -19,6 +19,7 @@ namespace CarRental.Api.Models
 
         public string ImageUrl { get; set; } = string.Empty;
 
+        [System.Text.Json.Serialization.JsonIgnore]
         public ICollection<Booking> Bookings { get; set; } = new List<Booking>();
 
     }
