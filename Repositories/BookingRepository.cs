@@ -38,6 +38,17 @@ namespace CarRental.Api.Repositories
             .Include(u => u.User)
             .FirstOrDefaultAsync(b => b.Id == id);
         }
+
+        public async Task<IEnumerable<Booking>> GetByUserIdAsync(string userId)
+        {
+            return await _context.Bookings
+     .Include(c => c.Car)
+     .Include(u => u.User)
+     .Where(b => b.UserId == userId)
+     .OrderByDescending(b => b.StartDate)
+     .ToListAsync();
+        }
+
         // save changes to the database
         public async Task SaveChangesAsync()
         {

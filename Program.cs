@@ -30,7 +30,6 @@ builder.Services.AddControllers(options =>
                 options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()); // Accept enums as strings
                 // Prevent object cycles during serialization (e.g., Booking -> Car -> Bookings -> ...)
                 options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
-
             });
 
 
@@ -172,6 +171,8 @@ using (var scope = app.Services.CreateScope())
     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
     await SeedUsers.SeedDefaultAdminUserAsync(userManager, roleManager);
 }
+app.UseStaticFiles();
+
 app.UseCors("DefaultCors");
 
 app.UseHttpsRedirection();

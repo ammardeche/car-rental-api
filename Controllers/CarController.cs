@@ -82,5 +82,26 @@ namespace CarRental.Api.Controllers
             if (!result) return NotFound();
             return NoContent();
         }
+        [HttpPost("upload-image")]
+        public async Task<IActionResult> UploadImage(IFormFile file)
+        {
+            if (file == null || file.Length == 0)
+                return BadRequest("No file uploaded");
+
+            var uploadsPath = Path.Combine("wwwroot/images/cars");
+            Directory.CreateDirectory(uploadsPath);
+
+            var fileName = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
+            var filePath = Path.Combine(uploadsPath, fileName);
+
+            using var stream = new FileStream(filePath, FileMode.Create);
+            await file.CopyToAsync(stream);
+
+            var imageUrl = $"/images/cars/{fileName}";
+
+            // ✅ Return as JSON object with property ImageUrl
+            return Ok(new { imageUrl });
+        }
+
     }
 }

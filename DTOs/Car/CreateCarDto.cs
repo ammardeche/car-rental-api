@@ -18,6 +18,7 @@ namespace CarRental.Api.DTOs.Car
 
         public decimal PricePerDay { get; set; }
 
-        public string? ImageUrl { get; set; }
+        [Required]
+        public string ImageUrl { get; set; } = string.Empty;
     }
 }

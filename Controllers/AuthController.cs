@@ -102,7 +102,6 @@ namespace CarRental.Api.Controllers
 
             return Ok(response);
         }
-
         [HttpGet("me")]
         [Authorize]
         public IActionResult Me()

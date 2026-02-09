@@ -66,7 +66,19 @@ namespace CarRental.Api.Controllers
 
             return Ok(MapToDto(booking));
         }
+        [HttpGet("my-bookings")]
+        public async Task<IActionResult> GetMyBookings()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Unauthorized("User not authenticated.");
+            }
 
+            var bookings = await _bookingService.GetByUserIdAsync(userId);
+            var dtos = bookings.Select(MapToDto);
+            return Ok(dtos);
+        }
         private BookingDto MapToDto(Booking booking)
         {
             var carDto = booking.Car == null ? null : new CarRental.Api.DTOs.Car.CarDto

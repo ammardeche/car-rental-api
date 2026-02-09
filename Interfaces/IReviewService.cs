@@ -11,5 +11,7 @@ namespace CarRental.Api.Interfaces
     {
         Task<Review> CreateAsync(string userId, CreateReviewDto dto);
         Task<List<Review>> GetByCarAsync(int carId);
+        Task<bool> CanUserReviewAsync(string userId, int carId);
+
     }
 }

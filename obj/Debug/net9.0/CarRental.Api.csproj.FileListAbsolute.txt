@@ -318,3 +318,4 @@ C:\Users\Surface\Desktop\Car-rental-system\car-rental-api\CarRental.Api\obj\Debu
 C:\Users\Surface\Desktop\Car-rental-system\car-rental-api\CarRental.Api\obj\Debug\net9.0\CarRental.Api.pdb
 C:\Users\Surface\Desktop\Car-rental-system\car-rental-api\CarRental.Api\obj\Debug\net9.0\CarRental.Api.genruntimeconfig.cache
 C:\Users\Surface\Desktop\Car-rental-system\car-rental-api\CarRental.Api\obj\Debug\net9.0\ref\CarRental.Api.dll
+C:\Users\Surface\Desktop\Car-rental-system\car-rental-api\CarRental.Api\bin\Debug\net9.0\CarRental.Api.staticwebassets.runtime.json

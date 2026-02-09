@@ -62,5 +62,10 @@ namespace CarRental.Api.Services
         {
             return await _bookingRepository.GetByIdAsync(id);
         }
+
+        public async Task<IEnumerable<Booking>> GetByUserIdAsync(string userId)
+        {
+            return await _bookingRepository.GetByUserIdAsync(userId);
+        }
     }
 }

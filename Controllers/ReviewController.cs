@@ -38,5 +38,17 @@ namespace CarRental.Api.Controllers
             var reviews = await _reviewService.GetByCarAsync(carId);
             return Ok(reviews);
         }
+
+        [HttpGet("can-review/{carId}")]
+        [Authorize]
+        public async Task<IActionResult> CanReview(int carId)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userId == null)
+                return Unauthorized();
+
+            var canReview = await _reviewService.CanUserReviewAsync(userId, carId);
+            return Ok(canReview);
+        }
     }
 }

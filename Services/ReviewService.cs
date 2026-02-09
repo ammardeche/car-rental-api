@@ -20,6 +20,7 @@ namespace CarRental.Api.Services
             _context = context;
             _reviewRepository = reviewRepository;
         }
+
         public async Task<Review> CreateAsync(string userId, CreateReviewDto dto)
         {
             if (dto.Rating < 1 || dto.Rating > 5)
@@ -29,9 +30,20 @@ namespace CarRental.Api.Services
             if (!carExists)
                 throw new Exception("Car not found.");
 
-            var alreadyReviewed = await _reviewRepository.ExistsAsync(userId, dto.CarId);
-            if (alreadyReviewed)
+            // Check if already reviewed
+            var existingReview = await _reviewRepository.ExistsAsync(userId, dto.CarId);
+            if (existingReview)
                 throw new Exception("You already reviewed this car.");
+
+            // Check if user has a finished booking
+            var hasFinishedBooking = await _context.Bookings.AnyAsync(b =>
+                b.UserId == userId &&
+                b.CarId == dto.CarId &&
+                b.EndDate <= DateTime.UtcNow.Date
+            );
+
+            if (!hasFinishedBooking)
+                throw new Exception("You can review only cars you have already rented.");
 
             var review = new Review
             {
@@ -45,6 +57,23 @@ namespace CarRental.Api.Services
             await _reviewRepository.SaveChangesAsync();
 
             return review;
+        }
+
+        public async Task<bool> CanUserReviewAsync(string userId, int carId)
+        {
+            // Check if already reviewed
+            var alreadyReviewed = await _reviewRepository.ExistsAsync(userId, carId);
+            if (alreadyReviewed)
+                return false;
+
+            // Check if user has a finished booking
+            var hasFinishedBooking = await _context.Bookings.AnyAsync(b =>
+                b.UserId == userId &&
+                b.CarId == carId &&
+                b.EndDate <= DateTime.UtcNow.Date
+            );
+
+            return hasFinishedBooking;
         }
 
         public async Task<List<Review>> GetByCarAsync(int carId)
