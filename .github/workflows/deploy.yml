@@ -17,15 +17,15 @@ jobs:
           submodules: recursive
           persist-credentials: true
 
-      - name: Initialize submodules
-        run: git submodule update --init --recursive
+      # - name: Initialize submodules
+        # run: git submodule update --init --recursive
 
-      - name: Verify submodules
-        run: |
-          echo "Listing Core Shared module:"
-          ls -R src/Modules/Shared/Core
-          echo "Listing Shared kernel module:"
-          ls -R src/Shared
+      # - name: Verify submodules
+      #   run: |
+      #     echo "Listing Core Shared module:"
+      #     ls -R src/Modules/Shared/Core
+      #     echo "Listing Shared kernel module:"
+      #     ls -R src/Shared
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
