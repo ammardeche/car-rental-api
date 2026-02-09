@@ -1,0 +1,14 @@
+bin/
+obj/
+*.db
+!Logs/
+Logs/*
+wwwroot/*
+!wwwroot/Images/
+
+# Exclude everything in Images except directory structure
+wwwroot/Images/**
+!wwwroot/Images/*/
+
+# Include default images in any subdirectory
+!wwwroot/Images/**/default.*
