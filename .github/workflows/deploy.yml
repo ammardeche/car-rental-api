@@ -33,10 +33,10 @@ jobs:
           dotnet-version: '9.0' # Adjust to your project's .NET version
 
       - name: Restore dependencies
-        run: dotnet restore src/Server.sln
+        run: dotnet restore CarRental.Api.sln
 
       - name: Build and publish
-        run: dotnet publish src/Presentation.Api/Presentation.Api.csproj -c Release -o publish
+        run: dotnet publish CarRental.Api.csproj -c Release -o publish
 
       - name: Deploy App Offline File
         run: |
